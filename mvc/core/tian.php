@@ -5,6 +5,7 @@ class tian{
     public $assign;
     static public function run(){
         \core\lib\log::init();
+        \core\lib\log::log($_SERVER,'server');
         $route=new \core\lib\route();
         //p($route);die;
         $ctrlClass = $route->ctrl;
@@ -18,6 +19,7 @@ class tian{
             $ctrl = new $cltrlClass;
             //p($ctrl);die;
             $ctrl->$action();
+            \core\lib\log::log('ctrl:'.$ctrlClass.'  '.'action:'.$action);
         }else{
             throw new \Exception('找不到控制器'.$ctrlClass);
         }
@@ -44,8 +46,14 @@ class tian{
     public function display($file){
         $file = APP.'/view/'.$file;
         if(is_file($file)){
-            extract($this->assign);
-            include $file;
+            \Twig_Autoloader::register();
+            $loader = new \Twig_Loader_Filesystem(APP.'/view');
+            $twig = new \Twig_Environment($loader, array(
+                'cache' => LTY.'log/twig',
+                'debug' => DEBUG
+            ));
+            $template = $twig->loadTemplate('index.html');
+            $template->display($this->assign?$this->assign:'');
         }
     }
 }

@@ -1,6 +1,9 @@
 <?php
 return array(
-    'DSN' =>'mysql:host=localhost;dbname=lianxi',
-    'USERNAME'=>'root',
-    'PASSWD'=>'root'
+    'database_type' => 'mysql',
+    'database_name' => 'lianxi',
+    'server' => 'localhost',
+    'username' => 'root',
+    'password' => 'root',
+    'charset' => 'utf8',
 );

@@ -1,4 +1,7 @@
 <?php
 return array(
-    'DRIVE'=>'file'
+    'DRIVE'=>'file',
+    'OPTION'=>array(
+        'PATH'=>LTY.'/log/'
+    )
 );
